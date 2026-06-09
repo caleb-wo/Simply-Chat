@@ -26,3 +26,4 @@ MaterialPageRoute generateRoutes(RouteSettings settings) {
       );
   }
 }
+'

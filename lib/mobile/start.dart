@@ -1,4 +1,5 @@
 import 'package:ai_chat_simple/api.dart';
+import 'package:ai_chat_simple/mobile/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,6 +11,15 @@ class StartPageMobile extends StatefulWidget {
 }
 
 class _StartPageMobileState extends State<StartPageMobile> {
+  final _controller = TextEditingController();
+  late final ApiManager manager;
+
+  ApiManager _initializeChatPage(String apiText) {
+    final key = apiText.trim();
+    _controller.clear();
+    return ApiManager(key);
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -132,7 +142,17 @@ class _StartPageMobileState extends State<StartPageMobile> {
                       ),
                       SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatPageMobile(
+                                manager: _initializeChatPage(_controller.text),
+                              ),
+                            ),
+                            (_) => false,
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.blueGrey, // Arrow color
