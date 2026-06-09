@@ -1,3 +1,4 @@
+import 'package:ai_chat_simple/mobile/chat.dart';
 import 'package:ai_chat_simple/mobile/start.dart';
 import 'package:flutter/material.dart';
 
@@ -26,4 +27,3 @@ MaterialPageRoute generateRoutes(RouteSettings settings) {
       );
   }
 }
-'

@@ -16,7 +16,6 @@ class _StartPageMobileState extends State<StartPageMobile> {
 
   ApiManager _initializeChatPage(String apiText) {
     final key = apiText.trim();
-    _controller.clear();
     return ApiManager(key);
   }
 
@@ -118,6 +117,7 @@ class _StartPageMobileState extends State<StartPageMobile> {
                             8.0,
                           ),
                           child: TextField(
+                            controller: _controller,
                             maxLines: 1,
                             textAlign: .center,
                             cursorColor: Colors.blueGrey,
@@ -143,6 +143,11 @@ class _StartPageMobileState extends State<StartPageMobile> {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          if (_controller.text.trim().isEmpty) {
+                            FocusScope.of(context).unfocus();
+                            _controller.clear();
+                            return;
+                          }
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
