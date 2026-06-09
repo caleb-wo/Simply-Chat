@@ -29,8 +29,8 @@ class _StartPageMobileState extends State<StartPageMobile> {
           center: Alignment.center,
           radius: 1.2,
           colors: [
-            Color(0xFF455A64), // Lighter blue-grey in the center
-            Color(0xFF263238), // Deeper blue-grey at the edges
+            Color(0xFF455A64),
+            Color(0xFF263238),
           ],
         ),
       ),
@@ -121,6 +121,24 @@ class _StartPageMobileState extends State<StartPageMobile> {
                             maxLines: 1,
                             textAlign: .center,
                             cursorColor: Colors.blueGrey,
+                            onSubmitted: (_) {
+                              if (_controller.text.trim().isEmpty) {
+                                FocusScope.of(context).unfocus();
+                                _controller.clear();
+                                return;
+                              }
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPageMobile(
+                                    manager: _initializeChatPage(
+                                      _controller.text,
+                                    ),
+                                  ),
+                                ),
+                                (_) => false,
+                              );
+                            },
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               focusColor: Colors.black,
