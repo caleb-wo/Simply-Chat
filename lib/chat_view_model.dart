@@ -1,7 +1,13 @@
 import 'package:ai_chat_simple/api.dart';
 
-final class ChatInterfaceViewModel {
-  final ApiManager _manager;
+import 'package:openai_dart/openai_dart.dart';
 
-  ChatInterfaceViewModel(this._manager);
+final class ChatInterfaceViewModel {
+  ApiManager _manager;
+
+  ChatInterfaceViewModel(String key) : _manager = ApiManager(key);
+
+  Future<({bool didSucceed, String? reply})> send(String message) async {
+    return await _manager.message(message);
+  }
 }

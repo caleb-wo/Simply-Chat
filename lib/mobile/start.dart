@@ -1,4 +1,5 @@
 import 'package:ai_chat_simple/api.dart';
+import 'package:ai_chat_simple/chat_view_model.dart';
 import 'package:ai_chat_simple/mobile/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,11 +13,10 @@ class StartPageMobile extends StatefulWidget {
 
 class _StartPageMobileState extends State<StartPageMobile> {
   final _controller = TextEditingController();
-  late final ApiManager manager;
 
-  ApiManager _initializeChatPage(String apiText) {
+  ChatInterfaceViewModel _initializeChatPage(String apiText) {
     final key = apiText.trim();
-    return ApiManager(key);
+    return ChatInterfaceViewModel(key);
   }
 
   @override
@@ -131,7 +131,7 @@ class _StartPageMobileState extends State<StartPageMobile> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ChatPageMobile(
-                                    manager: _initializeChatPage(
+                                    apiViewModel: _initializeChatPage(
                                       _controller.text,
                                     ),
                                   ),
@@ -170,7 +170,9 @@ class _StartPageMobileState extends State<StartPageMobile> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ChatPageMobile(
-                                manager: _initializeChatPage(_controller.text),
+                                apiViewModel: _initializeChatPage(
+                                  _controller.text,
+                                ),
                               ),
                             ),
                             (_) => false,
